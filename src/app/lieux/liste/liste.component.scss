@@ -1,0 +1,22 @@
+table{
+    width:100%;
+    margin-top: 2em;
+}
+
+.title h1{
+    font-family: 'General Sans', sans-serif;
+    font-weight: 600;
+    font-size: 2.75em;
+}
+
+:host ::ng-deep{
+    .qrcodestyle{
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .qrcodeshadow img{
+        width: 50px;
+    }
+}
