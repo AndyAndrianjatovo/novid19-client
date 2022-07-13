@@ -1,0 +1,27 @@
+<mat-toolbar class="navbar mat-elevation-z1">
+  <mat-toolbar-row>
+    <span class="navbar-brand">
+      <a routerLink="/"> Novid 19 </a>
+    </span>
+    <span class="space"></span>
+    <div class="navbar-links">
+      <ul class="navbar-list">
+        <li>
+          <a [routerLink]="['/tdb']" queryParamsHandling="merge"> Accueil </a>
+        </li>
+
+        <li>
+          <a [routerLink]="['/carte']" queryParamsHandling="merge"> Map </a>
+        </li>
+
+        <li>
+          <a [routerLink]="['/place']" queryParamsHandling="merge"> Lieux </a>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="conteuneur">
+  <router-outlet></router-outlet>
+</div>
