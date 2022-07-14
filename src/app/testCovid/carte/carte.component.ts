@@ -27,6 +27,36 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
   centreActive: boolean = true;
   lieuActive: boolean = true;
 
+  centreSelected: Centre = {
+    id_centre: -1,
+    nom_centre: '',
+    coordonnees_centre: '',
+    adresse_centre: '',
+  };
+  lieuSelected: Lieu = {
+    id_lieu: -1,
+    nom_lieu: '',
+    coordonnees_lieu: '',
+    adresse_lieu: '',
+    statut_lieu: -1,
+  };
+
+  reinitialise() {
+    this.centreSelected = {
+      id_centre: -1,
+      nom_centre: '',
+      coordonnees_centre: '',
+      adresse_centre: '',
+    };
+    this.lieuSelected = {
+      id_lieu: -1,
+      nom_lieu: '',
+      coordonnees_lieu: '',
+      adresse_lieu: '',
+      statut_lieu: -1,
+    };
+  }
+
   constructor() {}
 
   ngOnInit(): void {
@@ -116,15 +146,15 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
       el.style.borderRadius = '50%';
       el.style.cursor = 'pointer';
       el.classList.add('markerIconCentre');
-
+      el.addEventListener('click', () => {
+        var m: [number, number] = [+lng, +lat];
+        this.map!.setCenter(m);
+        this.map!.setZoom(16);
+        this.reinitialise();
+        this.centreSelected = tab[i];
+      });
       // create the marker
-      new maplibregl.Marker(el)
-        .setLngLat(monument)
-        .setPopup(
-          new maplibregl.Popup({ offset: 25 }) // add popups
-            .setHTML(`<h3>${tab[i].nom_centre}</h3><p>${tab[i].nom_centre}</p>`)
-        )
-        .addTo(this.map!);
+      new maplibregl.Marker(el).setLngLat(monument).addTo(this.map!);
     }
   }
   setMarkersLieux(tab: Lieu[]) {
@@ -134,23 +164,42 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
       var monument: [number, number] = [+lng, +lat];
       var el = document.createElement('div');
       el.id = 'marker';
-      el.style.backgroundImage =
-        'url(../../../assets/img/icon/marker-lieu.png)';
+
+      if (tab[i].statut_lieu == 1) {
+        el.style.backgroundImage =
+          'url(../../../assets/img/icon/marker-lieu-ok.png)';
+      } else {
+        el.style.backgroundImage =
+          'url(../../../assets/img/icon/marker-lieu-ko.png)';
+      }
+
       el.style.backgroundSize = 'cover';
       el.style.width = '25px';
       el.style.height = '25px';
       el.style.borderRadius = '50%';
       el.style.cursor = 'pointer';
       el.classList.add('markerIconLieux');
-
+      el.addEventListener('click', () => {
+        var m: [number, number] = [+lng, +lat];
+        this.map!.setCenter(m);
+        this.map!.setZoom(16);
+        this.reinitialise();
+        this.lieuSelected = tab[i];
+      });
       // create the marker
-      new maplibregl.Marker(el)
-        .setLngLat(monument)
-        .setPopup(
-          new maplibregl.Popup({ offset: 25 }) // add popups
-            .setHTML(`<h3>${tab[i].nom_lieu}</h3><p>${tab[i].adresse_lieu}</p>`)
-        )
-        .addTo(this.map!);
+      new maplibregl.Marker(el).setLngLat(monument).addTo(this.map!);
+    }
+  }
+
+  getStatuts(statut: number) {
+    switch (statut) {
+      case 1:
+        return 'Sain';
+      case 2:
+        return 'Infecté';
+
+      default:
+        return 'Inconnu';
     }
   }
 }

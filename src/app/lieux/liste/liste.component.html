@@ -16,7 +16,7 @@
     <ng-container matColumnDef="statut_lieu">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Statuts</th>
       <td mat-cell *matCellDef="let element" class="qrcodestyle">
-        {{ element.statut_lieu }}
+        {{ getStatuts(element.statut_lieu) }}
         <ngx-qrcode
           value="{{ element.id_lieu }}"
           cssClass="qrcodeshadow"

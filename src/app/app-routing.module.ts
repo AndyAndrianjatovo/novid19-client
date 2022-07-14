@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: '', component: TdbComponent },
   { path: 'carte', component: CarteComponent },
   { path: 'place', component: ListeComponent },
-  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

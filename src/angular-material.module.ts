@@ -3,6 +3,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   exports: [
@@ -10,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatCardModule,
   ],
 })
 export class AngularMaterialModule {}

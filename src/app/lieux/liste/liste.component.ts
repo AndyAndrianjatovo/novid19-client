@@ -32,4 +32,15 @@ export class ListeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {}
+  getStatuts(statut: number) {
+    switch (statut) {
+      case 1:
+        return 'Sain';
+      case 2:
+        return 'Infecté';
+
+      default:
+        return 'Inconnu';
+    }
+  }
 }
