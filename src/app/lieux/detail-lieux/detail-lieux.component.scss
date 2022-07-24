@@ -1,0 +1,17 @@
+.conteuneur-affiche{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;    
+}
+:host ::ng-deep{
+    .qrcodestyle{
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .qrcodeshadow img{
+        width: 350px;
+    }
+}

@@ -1,12 +1,23 @@
 // !NAVBAR
 .navbar{
-    background-color: #FFD098;
-    color:  black;
+    background-color: #0b4f8d;
+    // background-color: #FFD098;
+    color:  white;
     font-family: 'Poppins', sans-serif;
 }
 .navbar-brand a{
-    color: black;
+    color: white;
     text-decoration: none;
+   
+    
+}
+.navbar-brand a div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navbar-brand a img{ 
+    width:2.5rem
 }
 .space {
     flex: 1 1 auto;
@@ -15,7 +26,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: black;
+    background-color: white;
     display: block;
 }
 .navbar-list{
@@ -28,9 +39,10 @@
     list-style: none;
 }
 .navbar-list li a{
-    color: black;
+    color: white;
     font-size: 1rem;
     font-family: 'Poppins', sans-serif;
+    text-decoration: none;
 
 }
 

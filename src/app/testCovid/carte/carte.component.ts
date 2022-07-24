@@ -10,8 +10,8 @@ import * as maplibregl from 'maplibre-gl';
 import { Map, NavigationControl } from 'maplibre-gl';
 import { Centre } from 'src/app/models/centre';
 import { Lieu } from 'src/app/models/lieux';
-import { ELEMENT_DATA_c } from 'src/app/services/centre.service';
-import { ELEMENT_DATA } from 'src/app/services/lieux.service';
+import { CentreService, FAKE_CENTRE } from 'src/app/services/centre.service';
+import { ELEMENT_DATA, LieuxService } from 'src/app/services/lieux.service';
 
 @Component({
   selector: 'app-carte',
@@ -34,7 +34,7 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
     adresse_centre: '',
   };
   lieuSelected: Lieu = {
-    id_lieu: -1,
+    _id: -1,
     nom_lieu: '',
     coordonnees_lieu: '',
     adresse_lieu: '',
@@ -49,7 +49,7 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
       adresse_centre: '',
     };
     this.lieuSelected = {
-      id_lieu: -1,
+      _id: -1,
       nom_lieu: '',
       coordonnees_lieu: '',
       adresse_lieu: '',
@@ -57,11 +57,16 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
-  constructor() {}
+  constructor(
+    private centreService: CentreService,
+    private lieuxService: LieuxService
+  ) {}
 
   ngOnInit(): void {
-    this.getAllLieux();
-    this.getAllCentres();
+    // this.getAllLieux();
+    // this.getAllCentres();
+    this.getAllLieuxFake();
+    this.getAllCentresFake();
   }
 
   ngAfterViewInit() {
@@ -99,12 +104,26 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.map?.remove();
   }
+  getAllCentres() {
+    this.centreService.getCentres().subscribe((data: Centre[]) => {
+      this.centres = data;
+    });
+  }
+
   getAllLieux() {
+    // this.lieux = ELEMENT_DATA;
+
+    this.lieuxService.getLieux().subscribe((data: any) => {
+      this.lieux = data.docs;
+    });
+  }
+  getAllLieuxFake() {
     this.lieux = ELEMENT_DATA;
   }
-  getAllCentres() {
-    this.centres = ELEMENT_DATA_c;
+  getAllCentresFake() {
+    this.centres = FAKE_CENTRE;
   }
+
   desactiveLieu() {
     if (this.lieuActive) {
       while (document.getElementsByClassName('markerIconLieux').length > 0) {

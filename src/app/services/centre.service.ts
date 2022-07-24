@@ -20,7 +20,7 @@ export class CentreService {
   }
 }
 
-export const ELEMENT_DATA_c: Centre[] = [
+export const FAKE_CENTRE: Centre[] = [
   {
     id_centre: 1,
     nom_centre: 'CSB II Antanimena',

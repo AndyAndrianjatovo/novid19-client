@@ -1,0 +1,15 @@
+<div class="conteuneur-affiche" id="contentToConvert">
+  <h1>Bienvenue à {{ lieu.nom_lieu }}</h1>
+  <span>{{ lieu.adresse_lieu }}</span>
+  <ngx-qrcode
+    [width]="500"
+    value="{{ lieu._id }}"
+    cssClass="qrcodeshadow"
+  ></ngx-qrcode>
+  <p>Ce lieu est partenaire de <span>#NoVid</span></p>
+  <p>Ensemble contre le COVID-19</p>
+</div>
+
+<button mat-button color="secondary" (click)="convetToPDF()">
+  Télécharger l'affiche
+</button>
