@@ -77,6 +77,8 @@ export class ListeComponent implements OnInit, AfterViewInit {
       console.log(data);
       this.lieux = data.docs;
       this.dataSource = new MatTableDataSource<Lieu>(this.lieux);
+      this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     });
   }
   
@@ -95,7 +97,7 @@ export class ListeComponent implements OnInit, AfterViewInit {
   getAllTests() {
     this.testService.getTests().subscribe((data: any) => {
       this.tests = data.docs;
-      this.testsPositif = data.filter((test:Test) => test.etat_test === 1);
+      this.testsPositif = data.docs.filter((test:Test) => test.etat_test === 1);
     });
   }
 

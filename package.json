@@ -8,6 +8,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "heroku-postbuild": "ng build",
+  "engines": {
+    "node": "14.17.3",
+    "npm": "6.14.13"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~13.2.0",
@@ -32,12 +37,13 @@
     "ngx-gallery": "^5.10.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "typescript": "~4.5.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~13.2.5",
-    "@angular/cli": "~13.2.5",
-    "@angular/compiler-cli": "~13.2.0",
+    "@angular/cli": "^14.1.0",
+    "@angular/compiler-cli": "^13.2.7",
     "@types/d3-scale": "^4.0.2",
     "@types/d3-selection": "^3.0.2",
     "@types/jasmine": "~3.10.0",
