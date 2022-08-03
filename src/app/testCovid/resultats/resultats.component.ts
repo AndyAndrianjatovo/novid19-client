@@ -4,13 +4,13 @@ import { MatSort } from '@angular/material/sort';
 import { Centre } from 'src/app/models/centre';
 import { Personne } from 'src/app/models/personne';
 import { Test, TestToDisplay } from 'src/app/models/test';
-import { CentreService, FAKE_CENTRE } from 'src/app/services/centre.service';
+import { CentreService } from 'src/app/services/centre.service';
 import {
-  FAKE_PERSONNES,
+  
   PersonneServiceService,
 } from 'src/app/services/personne-service.service';
 import {
-  FAKE_TESTS,
+  
   TestCovidService,
 } from 'src/app/services/test-covid.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -54,8 +54,7 @@ export class ResultatsComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getTestToDisplay();
-    this.getTestToDisplayFake();
+    this.getTestToDisplay();
   }
 
   applyFilter(event: Event) {
@@ -63,29 +62,7 @@ export class ResultatsComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getTestToDisplayFake() {
-    this.test = FAKE_TESTS;
-    this.centres = FAKE_CENTRE;
-    this.personnes = FAKE_PERSONNES;
-    this.test.forEach((test) => {
-      var personneTemp = this.personnes.find(
-        (pers) => pers.id_personne === test.personne_id
-      );
-      var centreTemp = this.centres.find(
-        (centre) => centre.id_centre === test.centre_id
-      );
-      this.testToDisplay.push({
-        id_test: test.id_test,
-        date_test: test.date_test,
-        etat_test: test.etat_test,
-        personne: personneTemp!,
-        centre: centreTemp!,
-      });
-      this.dataSource = new MatTableDataSource<TestToDisplay>(
-        this.testToDisplay
-      );
-    });
-  }
+ 
 
   getTestToDisplay() {
     this.testService.getTests().subscribe((data: Test[]) => {

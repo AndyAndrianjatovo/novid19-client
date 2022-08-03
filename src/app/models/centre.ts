@@ -1,5 +1,6 @@
 export interface Centre {
-  id_centre: number;
+  _id: String;
+  id_centre: String;
   nom_centre: string;
   adresse_centre: string;
   coordonnees_centre: string;

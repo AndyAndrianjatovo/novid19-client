@@ -6,7 +6,7 @@
     <div class="map" #map></div>
   </div>
   <div class="legendes">
-    <div *ngIf="centreSelected.id_centre !== -1" class="card-container">
+    <div *ngIf="centreSelected.id_centre !== ''" class="card-container">
       <mat-card class="card">
         <img mat-card-image src="assets/img/centre.jpg" alt="" />
         <mat-card-header>
@@ -17,7 +17,7 @@
         </mat-card-content>
       </mat-card>
     </div>
-    <div *ngIf="lieuSelected._id !== -1" class="card-container">
+    <div *ngIf="lieuSelected._id !== ''" class="card-container">
       <mat-card class="card">
         <img mat-card-image src="assets/img/lieu.jpg" alt="" />
         <mat-card-header>

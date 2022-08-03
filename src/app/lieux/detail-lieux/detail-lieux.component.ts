@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Lieu } from 'src/app/models/lieux';
-import { ELEMENT_DATA, LieuxService } from 'src/app/services/lieux.service';
+import { LieuxService } from 'src/app/services/lieux.service';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -12,7 +12,6 @@ import html2canvas from 'html2canvas';
 })
 export class DetailLieuxComponent implements OnInit {
   lieu!: Lieu;
-  lieuxFake: Lieu[] = ELEMENT_DATA;
 
   constructor(
     private lieuxService: LieuxService,
@@ -22,15 +21,11 @@ export class DetailLieuxComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.route.snapshot.paramMap.get('id') != null) {
-      const id: number = +this.route.snapshot.paramMap.get('id')!;
-      // this.lieuxService.getLieu(id).subscribe((lieu) => {
-      //   this.lieu = lieu;
-      // });
-      this.lieuxFake.filter((lieu) => {
-        if (lieu._id === id) {
-          this.lieu = lieu;
-        }
+      const id: String = this.route.snapshot.paramMap.get('id')!;
+      this.lieuxService.getLieu(id).subscribe((lieu) => {
+        this.lieu = lieu;
       });
+     
     }
   }
   public convetToPDF() {

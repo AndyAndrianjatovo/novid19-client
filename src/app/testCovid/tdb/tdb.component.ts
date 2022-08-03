@@ -3,13 +3,13 @@ import { Centre } from 'src/app/models/centre';
 import { Lieu } from 'src/app/models/lieux';
 import { Test } from 'src/app/models/test';
 import { Vaccin } from 'src/app/models/vaccin';
-import { CentreService, FAKE_CENTRE } from 'src/app/services/centre.service';
-import { ELEMENT_DATA, LieuxService } from 'src/app/services/lieux.service';
+import { CentreService } from 'src/app/services/centre.service';
+import {  LieuxService } from 'src/app/services/lieux.service';
 import {
-  FAKE_TESTS,
+  
   TestCovidService,
 } from 'src/app/services/test-covid.service';
-import { FAKE_VACCINS, VaccinService } from 'src/app/services/vaccin.service';
+import { VaccinService } from 'src/app/services/vaccin.service';
 
 @Component({
   selector: 'app-tdb',
@@ -58,20 +58,16 @@ export class TdbComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getAllTests();
-    // this.getAllVaccins();
-    // this.getAllCentres();
-    // this.getAllLieux();
-    this.getAllTestsFake();
-    this.getAllVaccinsFake();
-    this.getAllCentresFake();
-    this.getAllLieuxFake();
+    this.getAllTests();
+    this.getAllVaccins();
+    this.getAllCentres();
+    this.getAllLieux();
   }
 
   getAllTests() {
-    this.testService.getTests().subscribe((data: Test[]) => {
-      this.tests = data;
-      this.testsPositif = data.filter((test) => test.etat_test === 1);
+    this.testService.getTests().subscribe((data: any) => {
+      this.tests = data.docs;
+      this.testsPositif = data.docs.filter((test:Test) => test.etat_test === 1);
       this.resultats.push({ name: 'Test effectué', value: this.tests.length });
       this.resultats.push({
         name: 'Cas positif',
@@ -79,46 +75,10 @@ export class TdbComponent implements OnInit {
       });
     });
   }
-  getAllTestsFake() {
-    // this.testService.getTests().subscribe((data: Test[]) => {
-    this.tests = FAKE_TESTS;
-    this.testsPositif = FAKE_TESTS.filter((test) => test.etat_test === 1);
-    FAKE_TESTS.forEach((element) => {
-      var a = FAKE_TESTS.filter((test) => test.date_test === element.date_test);
-      // console.log(element.date_test.toLocaleDateString(), a.length);
-      this.multi[0].series.push({
-        name: element.date_test.toLocaleDateString(),
-        value: a.length,
-      });
-    });
-
-    console.log(this.multi);
-    var te = this.groupByKey(this.multi[0].series, 'name');
-
-    console.log(te['01/02/2022'].length);
-
-    this.multi[0].series = [];
-
-    FAKE_TESTS.forEach((element) => {
-      this.multi[0].series.push({
-        name: te[element.date_test.toLocaleDateString()][0].name,
-        value: te[element.date_test.toLocaleDateString()].length,
-      });
-    });
-
-    console.log(this.multi);
-
-    this.resultats.push({ name: 'Test effectué', value: this.tests.length });
-    this.resultats.push({
-      name: 'Cas positif',
-      value: this.testsPositif.length,
-    });
-    // });
-  }
 
   getAllVaccins() {
-    this.vaccinService.getVaccins().subscribe((data: Vaccin[]) => {
-      this.vaccins = data;
+    this.vaccinService.getVaccins().subscribe((data: any) => {
+      this.vaccins = data.docs;
       this.resultats.push({
         name: 'Doses de vaccin administrées',
         value: this.vaccins.length,
@@ -126,17 +86,9 @@ export class TdbComponent implements OnInit {
     });
   }
 
-  getAllVaccinsFake() {
-    this.vaccins = FAKE_VACCINS;
-    this.resultats.push({
-      name: 'Doses de vaccin administrées',
-      value: this.vaccins.length,
-    });
-  }
-
   getAllCentres() {
-    this.centreService.getCentres().subscribe((data: Centre[]) => {
-      this.centres = data;
+    this.centreService.getCentres().subscribe((data: any) => {
+      this.centres = data.docs;
       this.resultats.push({
         name: 'Nombre de centre',
         value: this.centres.length,
@@ -144,16 +96,7 @@ export class TdbComponent implements OnInit {
     });
   }
 
-  getAllCentresFake() {
-    this.centres = FAKE_CENTRE;
-    this.resultats.push({
-      name: 'Nombre de centre',
-      value: this.centres.length,
-    });
-  }
-
   getAllLieux() {
-    // this.lieux = ELEMENT_DATA;
 
     this.lieuxService.getLieux().subscribe((data: any) => {
       this.lieux = data.docs;
@@ -161,14 +104,6 @@ export class TdbComponent implements OnInit {
         name: 'Nombre de lieux',
         value: this.lieux.length,
       });
-    });
-  }
-
-  getAllLieuxFake() {
-    this.lieux = ELEMENT_DATA;
-    this.resultats.push({
-      name: 'Nombre de lieux',
-      value: this.lieux.length,
     });
   }
 

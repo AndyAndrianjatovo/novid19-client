@@ -1,5 +1,5 @@
 export interface Lieu {
-  _id: number;
+  _id: String;
   nom_lieu: string;
   adresse_lieu: string;
   statut_lieu: number;

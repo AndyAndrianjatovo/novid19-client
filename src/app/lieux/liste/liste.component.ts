@@ -7,18 +7,18 @@ import {
   NgxQrcodeElementTypes,
   NgxQrcodeErrorCorrectionLevels,
 } from '@techiediaries/ngx-qrcode';
-import { ELEMENT_DATA, LieuxService } from 'src/app/services/lieux.service';
+import {  LieuxService } from 'src/app/services/lieux.service';
 import { Centre } from 'src/app/models/centre';
-import { CentreService, FAKE_CENTRE } from 'src/app/services/centre.service';
+import { CentreService } from 'src/app/services/centre.service';
 import {
-  FAKE_HISTORIQUES,
+  
   HistoriqueService,
 } from 'src/app/services/historique.service';
 import { Historique } from 'src/app/models/historique';
 import { Test } from 'src/app/models/test';
 import {
   TestCovidService,
-  FAKE_TESTS,
+  
 } from 'src/app/services/test-covid.service';
 
 @Component({
@@ -58,12 +58,7 @@ export class ListeComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getAllLieux();
-    // this.getAllCentres();
-    this.getAllLieuxFake();
-    this.getAllCentresFake();
-    this.getAllTestsFake();
-    this.getAllHistoriqueFake();
+    this.getLieuxToDisplay();
   }
 
   getStatuts(statut: number) {
@@ -78,25 +73,17 @@ export class ListeComponent implements OnInit, AfterViewInit {
     }
   }
   getAllLieux() {
-    // this.lieux = ELEMENT_DATA;
-
     this.lieuxService.getLieux().subscribe((data: any) => {
+      console.log(data);
       this.lieux = data.docs;
       this.dataSource = new MatTableDataSource<Lieu>(this.lieux);
     });
   }
-  getAllLieuxFake() {
-    this.lieux = ELEMENT_DATA;
-    this.dataSource = new MatTableDataSource<Lieu>(this.lieux);
-  }
+  
   getAllCentres() {
-    this.centreService.getCentres().subscribe((data: Centre[]) => {
-      this.centres = data;
+    this.centreService.getCentres().subscribe((data: any) => {
+      this.centres = data.docs;
     });
-  }
-
-  getAllCentresFake() {
-    this.centres = FAKE_CENTRE;
   }
 
   getAllHistorique() {
@@ -105,15 +92,20 @@ export class ListeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getAllHistoriqueFake() {
-    this.historiques = FAKE_HISTORIQUES;
-    this.getLieuxToDisplay();
-    this.dataSource = new MatTableDataSource<LieuWithToDisplay>(
-      this.lieuxToDisplay
-    );
+  getAllTests() {
+    this.testService.getTests().subscribe((data: any) => {
+      this.tests = data.docs;
+      this.testsPositif = data.filter((test:Test) => test.etat_test === 1);
+    });
   }
 
+
   getLieuxToDisplay() {
+    this.getAllLieux();
+    this.getAllCentres();
+    this.getAllHistorique();
+    this.getAllTests();
+
     this.lieuxToDisplay = [];
     var nbPositive = 0;
     this.lieux.forEach((lieu: Lieu) => {
@@ -153,15 +145,5 @@ export class ListeComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getAllTests() {
-    this.testService.getTests().subscribe((data: Test[]) => {
-      this.tests = data;
-      this.testsPositif = data.filter((test) => test.etat_test === 1);
-    });
-  }
-
-  getAllTestsFake() {
-    this.tests = FAKE_TESTS;
-    this.testsPositif = FAKE_TESTS.filter((test) => test.etat_test === 1);
-  }
+ 
 }

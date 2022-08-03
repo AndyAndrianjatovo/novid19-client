@@ -10,8 +10,8 @@ import * as maplibregl from 'maplibre-gl';
 import { Map, NavigationControl } from 'maplibre-gl';
 import { Centre } from 'src/app/models/centre';
 import { Lieu } from 'src/app/models/lieux';
-import { CentreService, FAKE_CENTRE } from 'src/app/services/centre.service';
-import { ELEMENT_DATA, LieuxService } from 'src/app/services/lieux.service';
+import { CentreService } from 'src/app/services/centre.service';
+import {  LieuxService } from 'src/app/services/lieux.service';
 
 @Component({
   selector: 'app-carte',
@@ -28,13 +28,14 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
   lieuActive: boolean = true;
 
   centreSelected: Centre = {
-    id_centre: -1,
+    _id: '',
+    id_centre: '',
     nom_centre: '',
     coordonnees_centre: '',
     adresse_centre: '',
   };
   lieuSelected: Lieu = {
-    _id: -1,
+    _id: '',
     nom_lieu: '',
     coordonnees_lieu: '',
     adresse_lieu: '',
@@ -43,13 +44,14 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
 
   reinitialise() {
     this.centreSelected = {
-      id_centre: -1,
-      nom_centre: '',
-      coordonnees_centre: '',
-      adresse_centre: '',
+      _id: '',
+    id_centre: '',
+    nom_centre: '',
+    coordonnees_centre: '',
+    adresse_centre: '',
     };
     this.lieuSelected = {
-      _id: -1,
+      _id: '',
       nom_lieu: '',
       coordonnees_lieu: '',
       adresse_lieu: '',
@@ -63,10 +65,8 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.getAllLieux();
-    // this.getAllCentres();
-    this.getAllLieuxFake();
-    this.getAllCentresFake();
+    this.getAllLieux();
+    this.getAllCentres();
   }
 
   ngAfterViewInit() {
@@ -104,25 +104,19 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.map?.remove();
   }
+
   getAllCentres() {
-    this.centreService.getCentres().subscribe((data: Centre[]) => {
-      this.centres = data;
+    this.centreService.getCentres().subscribe((data: any) => {
+      this.centres = data.docs;
     });
   }
 
   getAllLieux() {
-    // this.lieux = ELEMENT_DATA;
-
     this.lieuxService.getLieux().subscribe((data: any) => {
       this.lieux = data.docs;
     });
   }
-  getAllLieuxFake() {
-    this.lieux = ELEMENT_DATA;
-  }
-  getAllCentresFake() {
-    this.centres = FAKE_CENTRE;
-  }
+
 
   desactiveLieu() {
     if (this.lieuActive) {
