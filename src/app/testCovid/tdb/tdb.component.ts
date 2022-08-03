@@ -25,6 +25,31 @@ export class TdbComponent implements OnInit {
   centres: Centre[] = [];
   lieux: Lieu[] = [];
 
+  multi = [
+    {
+      name: 'Test',
+      series: [
+        {
+          name: '',
+          value: 0,
+        },
+      ],
+    },
+  ];
+  view: [number, number] = [1400, 300];
+
+  // options
+  legend: boolean = true;
+  showLabels: boolean = true;
+  animations: boolean = true;
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+  showYAxisLabel: boolean = true;
+  showXAxisLabel: boolean = false;
+  xAxisLabel: string = 'Year';
+  yAxisLabel: string = 'Nombre de test';
+  timeline: boolean = true;
+
   constructor(
     private testService: TestCovidService,
     private vaccinService: VaccinService,
@@ -58,6 +83,31 @@ export class TdbComponent implements OnInit {
     // this.testService.getTests().subscribe((data: Test[]) => {
     this.tests = FAKE_TESTS;
     this.testsPositif = FAKE_TESTS.filter((test) => test.etat_test === 1);
+    FAKE_TESTS.forEach((element) => {
+      var a = FAKE_TESTS.filter((test) => test.date_test === element.date_test);
+      // console.log(element.date_test.toLocaleDateString(), a.length);
+      this.multi[0].series.push({
+        name: element.date_test.toLocaleDateString(),
+        value: a.length,
+      });
+    });
+
+    console.log(this.multi);
+    var te = this.groupByKey(this.multi[0].series, 'name');
+
+    console.log(te['01/02/2022'].length);
+
+    this.multi[0].series = [];
+
+    FAKE_TESTS.forEach((element) => {
+      this.multi[0].series.push({
+        name: te[element.date_test.toLocaleDateString()][0].name,
+        value: te[element.date_test.toLocaleDateString()].length,
+      });
+    });
+
+    console.log(this.multi);
+
     this.resultats.push({ name: 'Test effectué', value: this.tests.length });
     this.resultats.push({
       name: 'Cas positif',
@@ -120,5 +170,14 @@ export class TdbComponent implements OnInit {
       name: 'Nombre de lieux',
       value: this.lieux.length,
     });
+  }
+
+  groupByKey(array: any[], key: string) {
+    return array.reduce((hash, obj) => {
+      if (obj[key] === undefined) return hash;
+      return Object.assign(hash, {
+        [obj[key]]: (hash[obj[key]] || []).concat(obj),
+      });
+    }, {});
   }
 }

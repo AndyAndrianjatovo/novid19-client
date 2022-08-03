@@ -1,6 +1,6 @@
-<div class="title">
+<!-- <div class="title">
   <h1>Tableau des résultats No-Vid</h1>
-</div>
+</div> -->
 <div class="recap">
   <div class="recap-item">
     <div class="titre-recap">Test effectué</div>
@@ -30,7 +30,7 @@
   <div>
     <!-- <h1>Vertical</h1> -->
     <ngx-charts-bar-vertical
-      [view]="[1250, 400]"
+      [view]="[1150, 400]"
       [results]="resultats"
       [xAxisLabel]="''"
       [legendTitle]="'Statistiques COVID-19 Madagascar'"
@@ -43,6 +43,19 @@
       [gradient]="false"
     >
     </ngx-charts-bar-vertical>
+    <!-- 
+    <ngx-charts-area-chart
+      [view]="view"
+      [legend]="legend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxis]="xAxis"
+      [yAxis]="yAxis"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [results]="multi"
+    >
+    </ngx-charts-area-chart> -->
   </div>
 
   <!-- <div>

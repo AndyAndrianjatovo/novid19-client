@@ -1,9 +1,9 @@
-<mat-toolbar class="navbar mat-elevation-z1">
+<mat-toolbar class="navbar">
   <mat-toolbar-row>
-    <span class="navbar-brand">
+    <span class="navbar-brand" id="logoPart">
       <a routerLink="/">
         <div>
-          <img src="assets/img/icon/novid.png" alt="" />
+          <img src="assets/img/icon/novid_sbg.png" alt="" />
         </div>
       </a>
     </span>
@@ -11,17 +11,17 @@
     <div class="navbar-links">
       <ul class="navbar-list">
         <li>
-          <a [routerLink]="['/tdb']" queryParamsHandling="merge">
+          <a [routerLink]="['/tdb']" routerLinkActive="active">
             Tableau de bords
           </a>
         </li>
 
         <li>
-          <a [routerLink]="['/carte']" queryParamsHandling="merge"> Carte </a>
+          <a [routerLink]="['/carte']" routerLinkActive="active"> Carte </a>
         </li>
 
         <li>
-          <a [routerLink]="['/place']" queryParamsHandling="merge">
+          <a [routerLink]="['/place']" routerLinkActive="active">
             Lieux partenaires
           </a>
         </li>
