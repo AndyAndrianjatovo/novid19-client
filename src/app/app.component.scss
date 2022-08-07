@@ -1,47 +1,80 @@
 // !NAVBAR
-.navbar{
-    background-color: #FFD098;
-    color:  black;
-    font-family: 'Poppins', sans-serif;
+.navbar {
+  //   background-color: #0d2329;
+  background-color: #fff;
+  color: #0d2329;
+  font-family: "Poppins", sans-serif;
 }
-.navbar-brand a{
-    color: black;
-    text-decoration: none;
+.navbar-brand a {
+  color: #0d2329;
+  text-decoration: none;
 }
-.space {
-    flex: 1 1 auto;
-  }
-#logoSpan{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: black;
-    display: block;
-}
-.navbar-list{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1em;
-}
-.navbar-list li{
-    list-style: none;
-}
-.navbar-list li a{
-    color: black;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-
+.navbar-brand a div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-mat-toolbar-row{
-    width: 80%;
-    margin: 0 auto;
+.space,
+.navbar-brand,
+.navbar-links {
+  flex: 1 1 0;
+}
+
+#logoPart,
+#logoPart a,
+#logoPart a div {
+  width: 100%;
+}
+
+.navbar-brand a img {
+  width: inherit;
+}
+
+#logoSpan {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  display: block;
+}
+.navbar-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+.navbar-list li {
+  list-style: none;
+}
+.navbar-list li a {
+  color: #0d2329;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+}
+
+mat-toolbar-row {
+  width: 80%;
+  margin: 0 auto;
 }
 
 //! CONTEUNEUR
-.conteuneur{
-    width: 80%;
-    margin: 0 auto;
-    margin-top: 2em;
+.conteuneur {
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 2em;
+}
+
+:host ::ng-deep {
+  .mat-toolbar-row,
+  .mat-toolbar-single-row {
+    height: 90px;
+  }
+}
+
+.navbar-list li .active {
+  padding: 0.5em;
+  border-bottom: 3px #05664f solid;
+  color: #05664f;
 }

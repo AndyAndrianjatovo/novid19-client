@@ -15,7 +15,19 @@ export class TestCovidService {
     return this.http.get<Test[]>(this.configUrl + 'test');
   }
 
-  getTest(id: number) {
+  getTest(id: String) {
     return this.http.get<Test>(this.configUrl + 'test/' + id);
   }
+
+  getStatutTest(etat_test: number) {
+    switch (etat_test) {
+      case 1:
+        return 'Positif';
+      case 2:
+        return 'Negatif';
+      default:
+        return 'Indéterminé';
+    }
+  }
 }
+

@@ -1,12 +1,12 @@
 .map-wrap {
     margin-top: 2em;
-    position: relative;
+    // position: relative;
     width: 80%;
     height: calc(100vh - 25vh); /* calculate height of the screen minus the heading */
   }
   
   .map {
-    position: absolute;
+    // position: absolute;
     width: 100%;
     height: 100%;
   }
@@ -27,6 +27,13 @@
 .conteuneurMap{
     display:flex;
 }
+.legendes ul, .legendes .card-container{
+  padding: 0;
+  width: 90%;
+  margin: 0 auto;
+}
+
+
 .legendes ul li{
     list-style: none;
     font-size: 1.1rem;
@@ -50,3 +57,42 @@
     width: 100%;
     margin-top: 1em;
 }
+
+:host ::ng-deep{
+  .mat-card{
+    // padding: 0;
+    background: #fff;
+    color:#424242;
+  }
+  .mat-card-header-text{
+    
+    margin: 0;
+  }
+ 
+}
+
+.card-conteuneur{
+  width: 95%;
+  margin: 0 auto;
+  height: 100px;
+  position: relative;
+}
+
+.img-card{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-image: url('../../../assets/img/centre.jpg');
+    // position: relative;
+}
+.txt-card{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+}
+

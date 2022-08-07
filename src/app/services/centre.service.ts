@@ -15,28 +15,28 @@ export class CentreService {
     return this.http.get<Centre[]>(this.configUrl + 'centre');
   }
 
-  getCentre(id: number) {
+  getCentre(id: String) {
     return this.http.get<Centre>(this.configUrl + 'centre/' + id);
   }
 }
 
-export const ELEMENT_DATA_c: Centre[] = [
-  {
-    id_centre: 1,
-    nom_centre: 'CSB II Antanimena',
-    adresse_centre: 'Lot I V G 203, Antananarivo',
-    coordonnees_centre: '47.5207772,-18.8991892',
-  },
-  {
-    id_centre: 2,
-    nom_centre: 'Centre De Santé De Base CSB II',
-    adresse_centre: '2HV9+Q4J, Antananarivo',
-    coordonnees_centre: '47.5655623,-18.955541',
-  },
-  {
-    id_centre: 3,
-    nom_centre: 'Village VOARA',
-    adresse_centre: '4F6R+P34, Antananarivo',
-    coordonnees_centre: '47.4880139,-18.8882477',
-  },
-];
+// export const FAKE_CENTRE: Centre[] = [
+//   {
+//     id_centre: 1,
+//     nom_centre: 'CSB II Antanimena',
+//     adresse_centre: 'Lot I V G 203, Antananarivo',
+//     coordonnees_centre: '47.5207772,-18.8991892',
+//   },
+//   {
+//     id_centre: 2,
+//     nom_centre: 'Centre De Santé De Base CSB II',
+//     adresse_centre: '2HV9+Q4J, Antananarivo',
+//     coordonnees_centre: '47.5655623,-18.955541',
+//   },
+//   {
+//     id_centre: 3,
+//     nom_centre: 'Village VOARA',
+//     adresse_centre: '4F6R+P34, Antananarivo',
+//     coordonnees_centre: '47.4880139,-18.8882477',
+//   },
+// ];

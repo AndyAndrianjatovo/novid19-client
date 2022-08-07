@@ -1,11 +1,34 @@
-<div class="title">
+<!-- <div class="title">
   <h1>Carte des lieux et centres</h1>
-</div>
+</div> -->
 <div class="conteuneurMap">
   <div class="map-wrap">
     <div class="map" #map></div>
   </div>
   <div class="legendes">
+    <div *ngIf="centreSelected.id_centre !== ''" class="card-container">
+      <mat-card class="card">
+        <img mat-card-image src="assets/img/centre.jpg" alt="" />
+        <mat-card-header>
+          <mat-card-title>{{ centreSelected.nom_centre }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ centreSelected.adresse_centre }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngIf="lieuSelected._id !== ''" class="card-container">
+      <mat-card class="card">
+        <img mat-card-image src="assets/img/lieu.jpg" alt="" />
+        <mat-card-header>
+          <mat-card-title>{{ lieuSelected.nom_lieu }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ lieuSelected.adresse_lieu }}</p>
+          <p>{{ getStatuts(lieuSelected.statut_lieu) }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
     <ul>
       <li>
         <div class="legende">

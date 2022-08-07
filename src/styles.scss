@@ -1,7 +1,14 @@
-@import '~maplibre-gl/dist/maplibre-gl.css';
-body{
-    margin: 0;
-    padding: 0;
-    font-family: 'General Sans', sans-serif;
-    width: 100vw;
+@import "~maplibre-gl/dist/maplibre-gl.css";
+// primary-color: #0b4f8d;
+// secondary-color: #2e368f;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "General Sans", sans-serif;
+  width: 100vw;
+}
+.mat-sidenav-container,
+.mat-sidenav-content,
+.mat-tab-body-content {
+  transform: none !important;
 }

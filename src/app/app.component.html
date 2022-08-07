@@ -1,24 +1,36 @@
-<mat-toolbar class="navbar mat-elevation-z1">
+<mat-toolbar class="navbar">
   <mat-toolbar-row>
-    <span class="navbar-brand">
-      <a routerLink="/"> Novid 19 </a>
+    <span class="navbar-brand" id="logoPart">
+      <a routerLink="/">
+        <div>
+          <img src="assets/img/icon/novid_sbg.png" alt="" />
+        </div>
+      </a>
     </span>
     <span class="space"></span>
     <div class="navbar-links">
       <ul class="navbar-list">
         <li>
-          <a [routerLink]="['/tdb']" queryParamsHandling="merge"> Accueil </a>
+          <a [routerLink]="['/tdb']" routerLinkActive="active">
+            Tableau de bords
+          </a>
         </li>
 
         <li>
-          <a [routerLink]="['/carte']" queryParamsHandling="merge"> Map </a>
+          <a [routerLink]="['/carte']" routerLinkActive="active"> Carte </a>
         </li>
 
         <li>
-          <a [routerLink]="['/place']" queryParamsHandling="merge"> Lieux </a>
+          <a [routerLink]="['/place']" routerLinkActive="active">
+            Lieux partenaires
+          </a>
         </li>
       </ul>
     </div>
+    <span class="space"></span>
+    <span class="navbar-brand">
+      <a routerLink="/"> #NoVid19 </a>
+    </span>
   </mat-toolbar-row>
 </mat-toolbar>
 

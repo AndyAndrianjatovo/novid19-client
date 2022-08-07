@@ -13,6 +13,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ResultatsComponent } from './testCovid/resultats/resultats.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { CarteComponent } from './testCovid/carte/carte.component';
+import { ResultatsDetailsComponent } from './testCovid/resultats/resultats-details/resultats-details.component';
+import { HomeComponent } from './home/home.component';
+import { DetailLieuxComponent } from './lieux/detail-lieux/detail-lieux.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,9 @@ import { CarteComponent } from './testCovid/carte/carte.component';
     TdbComponent,
     ResultatsComponent,
     CarteComponent,
+    ResultatsDetailsComponent,
+    HomeComponent,
+    DetailLieuxComponent,
   ],
   imports: [
     BrowserModule,

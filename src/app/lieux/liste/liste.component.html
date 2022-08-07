@@ -1,24 +1,36 @@
-<div class="title">
+<!-- <div class="title">
   <h1>Liste des lieux partenaires</h1>
-</div>
+</div> -->
 <div class="tableau">
   <table mat-table [dataSource]="dataSource" matSort>
     <ng-container matColumnDef="nom_lieu">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Nom</th>
-      <td mat-cell *matCellDef="let element">{{ element.nom_lieu }}</td>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/place', element._id]">
+          {{ element.nom_lieu }}
+        </a>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="adresse_lieu">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Adresse</th>
       <td mat-cell *matCellDef="let element">{{ element.adresse_lieu }}</td>
     </ng-container>
+    <ng-container matColumnDef="nbPassages">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Passage</th>
+      <td mat-cell *matCellDef="let element">{{ element.nbPassages }}</td>
+    </ng-container>
+    <ng-container matColumnDef="nbPositive">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cas positif</th>
+      <td mat-cell *matCellDef="let element">{{ element.nbPositive }}</td>
+    </ng-container>
 
     <ng-container matColumnDef="statut_lieu">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Statuts</th>
       <td mat-cell *matCellDef="let element" class="qrcodestyle">
-        {{ element.statut_lieu }}
+        {{ getStatuts(element.statut_lieu) }}
         <ngx-qrcode
-          value="{{ element.id_lieu }}"
+          value="{{ element._id }}"
           cssClass="qrcodeshadow"
         ></ngx-qrcode>
       </td>

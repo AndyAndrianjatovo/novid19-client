@@ -10,8 +10,8 @@ import * as maplibregl from 'maplibre-gl';
 import { Map, NavigationControl } from 'maplibre-gl';
 import { Centre } from 'src/app/models/centre';
 import { Lieu } from 'src/app/models/lieux';
-import { ELEMENT_DATA_c } from 'src/app/services/centre.service';
-import { ELEMENT_DATA } from 'src/app/services/lieux.service';
+import { CentreService } from 'src/app/services/centre.service';
+import {  LieuxService } from 'src/app/services/lieux.service';
 
 @Component({
   selector: 'app-carte',
@@ -27,7 +27,42 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
   centreActive: boolean = true;
   lieuActive: boolean = true;
 
-  constructor() {}
+  centreSelected: Centre = {
+    _id: '',
+    id_centre: '',
+    nom_centre: '',
+    coordonnees_centre: '',
+    adresse_centre: '',
+  };
+  lieuSelected: Lieu = {
+    _id: '',
+    nom_lieu: '',
+    coordonnees_lieu: '',
+    adresse_lieu: '',
+    statut_lieu: -1,
+  };
+
+  reinitialise() {
+    this.centreSelected = {
+      _id: '',
+    id_centre: '',
+    nom_centre: '',
+    coordonnees_centre: '',
+    adresse_centre: '',
+    };
+    this.lieuSelected = {
+      _id: '',
+      nom_lieu: '',
+      coordonnees_lieu: '',
+      adresse_lieu: '',
+      statut_lieu: -1,
+    };
+  }
+
+  constructor(
+    private centreService: CentreService,
+    private lieuxService: LieuxService
+  ) {}
 
   ngOnInit(): void {
     this.getAllLieux();
@@ -69,12 +104,20 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy() {
     this.map?.remove();
   }
-  getAllLieux() {
-    this.lieux = ELEMENT_DATA;
-  }
+
   getAllCentres() {
-    this.centres = ELEMENT_DATA_c;
+    this.centreService.getCentres().subscribe((data: any) => {
+      this.centres = data.docs;
+    });
   }
+
+  getAllLieux() {
+    this.lieuxService.getLieux().subscribe((data: any) => {
+      this.lieux = data.docs;
+    });
+  }
+
+
   desactiveLieu() {
     if (this.lieuActive) {
       while (document.getElementsByClassName('markerIconLieux').length > 0) {
@@ -116,15 +159,15 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
       el.style.borderRadius = '50%';
       el.style.cursor = 'pointer';
       el.classList.add('markerIconCentre');
-
+      el.addEventListener('click', () => {
+        var m: [number, number] = [+lng, +lat];
+        this.map!.setCenter(m);
+        this.map!.setZoom(16);
+        this.reinitialise();
+        this.centreSelected = tab[i];
+      });
       // create the marker
-      new maplibregl.Marker(el)
-        .setLngLat(monument)
-        .setPopup(
-          new maplibregl.Popup({ offset: 25 }) // add popups
-            .setHTML(`<h3>${tab[i].nom_centre}</h3><p>${tab[i].nom_centre}</p>`)
-        )
-        .addTo(this.map!);
+      new maplibregl.Marker(el).setLngLat(monument).addTo(this.map!);
     }
   }
   setMarkersLieux(tab: Lieu[]) {
@@ -134,23 +177,42 @@ export class CarteComponent implements OnInit, AfterViewInit, OnDestroy {
       var monument: [number, number] = [+lng, +lat];
       var el = document.createElement('div');
       el.id = 'marker';
-      el.style.backgroundImage =
-        'url(../../../assets/img/icon/marker-lieu.png)';
+
+      if (tab[i].statut_lieu == 1) {
+        el.style.backgroundImage =
+          'url(../../../assets/img/icon/marker-lieu-ok.png)';
+      } else {
+        el.style.backgroundImage =
+          'url(../../../assets/img/icon/marker-lieu-ko.png)';
+      }
+
       el.style.backgroundSize = 'cover';
       el.style.width = '25px';
       el.style.height = '25px';
       el.style.borderRadius = '50%';
       el.style.cursor = 'pointer';
       el.classList.add('markerIconLieux');
-
+      el.addEventListener('click', () => {
+        var m: [number, number] = [+lng, +lat];
+        this.map!.setCenter(m);
+        this.map!.setZoom(16);
+        this.reinitialise();
+        this.lieuSelected = tab[i];
+      });
       // create the marker
-      new maplibregl.Marker(el)
-        .setLngLat(monument)
-        .setPopup(
-          new maplibregl.Popup({ offset: 25 }) // add popups
-            .setHTML(`<h3>${tab[i].nom_lieu}</h3><p>${tab[i].adresse_lieu}</p>`)
-        )
-        .addTo(this.map!);
+      new maplibregl.Marker(el).setLngLat(monument).addTo(this.map!);
+    }
+  }
+
+  getStatuts(statut: number) {
+    switch (statut) {
+      case 1:
+        return 'Sain';
+      case 2:
+        return 'Infecté';
+
+      default:
+        return 'Inconnu';
     }
   }
 }
